@@ -1,11 +1,35 @@
 const { Schema, model } = require('mongoose');
 const formatDate = require('../utils/formatDate');
 
+
+const ReactionSchema = new Schema({
+    reactionId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId()
+    },
+    reactionBody: {
+        type: String,
+        require: true,
+        maxLength: 280
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (createdAtVal) => formatDate(createdAtVal) // get'ting formatting function from Utils
+        // doing this call here, means it will be formatted before controllers even receive the data && timestamp value will be stored, but displayed w/ formatting
+    }
+});
+
 const ThoughtSchema = new Schema({
     thoughtText: {
         type: String,
-        // ? required,
-        // ? between 1-280 char
+        required: true,
+        minLength: 1,
+        maxLength: 280
     },
     createdAt: {
         type: Date,
@@ -15,31 +39,11 @@ const ThoughtSchema = new Schema({
     },
     username: {
         type: String,
-        // ? required
+        required: true
     },
-    /*
-    ReactionSchema: [{
-        reactionId: {
-            // ? Use Mongoose's ObjectId data type
-            // ? default: newObjectId
-        },
-        reactionBody: {
-            type: String,
-            // ? REquire
-            // ? 280 char max
-        },
-        username: {
-            type: String,
-            // ? ref: 'User'
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            get: (createdAtVal) => formatDate(createdAtVal) // get'ting formatting function from Utils
-            // doing this call here, means it will be formatted before controllers even receive the data && timestamp value will be stored, but displayed w/ formatting
-        }
-    }]
-    */
+    reactions: [
+        ReactionSchema
+    ]
 },
     {
         toJSON: {
@@ -50,16 +54,11 @@ const ThoughtSchema = new Schema({
     }
 );
 
-// ? ReactionSchema.virtual('reactionCount').get(function () {
-// ?     return this.reactions.length;
-// ? });
-
-// ? ThoughtSchema.virtual('thoughtCount').get(function () {
-// ?     return this.thoughts.length;
-// ? });
+ThoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;});
 
 const Thought = model('Thought', ThoughtSchema);
-// ? const Reaction = model('Reaction', ReactionSchema);
+
 
 module.exports = Thought;
 
