@@ -19,10 +19,16 @@ const ReactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (createdAtVal) => formatDate(createdAtVal) // get'ting formatting function from Utils
+        get: (createdAtValue) => formatDate(createdAtValue) // get'ting formatting function from Utils
         // doing this call here, means it will be formatted before controllers even receive the data && timestamp value will be stored, but displayed w/ formatting
     }
-});
+},
+    {
+        toJSON: {
+            getters: true
+        }
+    }
+);
 
 const ThoughtSchema = new Schema({
     thoughtText: {
@@ -34,7 +40,7 @@ const ThoughtSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (createdAtVal) => formatDate(createdAtVal) // get'ting formatting function from Utils
+        get: (createdAtValue) => formatDate(createdAtValue) // get'ting formatting function from Utils
         // doing this call here, means it will be formatted before controllers even receive the data && timestamp value will be stored, but displayed w/ formatting
     },
     username: {
@@ -55,12 +61,11 @@ const ThoughtSchema = new Schema({
 );
 
 ThoughtSchema.virtual('reactionCount').get(function () {
-    return this.reactions.length;});
+    return this.reactions.length;
+});
 
 const Thought = model('Thought', ThoughtSchema);
 
 
 module.exports = Thought;
 
-
-// ! don't forget to import Thought.js model into models/index

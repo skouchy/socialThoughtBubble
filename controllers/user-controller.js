@@ -3,11 +3,11 @@ const { User } = require('../models');
 const userController = {
     getAllUsers(req, res) {
         User.find({})
-            // .populate({
-            //     path: 'thoughts'
-            //     // select: '-__v'
-            // })
-            // .select('-__v')
+            .populate({
+                path: 'thoughts',
+                select: '-__v'
+            })
+            .select('-__v')
             .then(dbUserData => res.json(dbUserData))
             .catch(err => {
                 console.log(err);
@@ -15,12 +15,12 @@ const userController = {
             })
     },
     getUserById({ params }, res) {
-        User.findOne({ _id: params.id })
-            // .populate({
-            //     path: 'thoughts'
-            //     // select: '-__v'
-            // })
-            // .select('-__v')
+        User.findOne({ _id: params.userId })
+            .populate({
+                path: 'thoughts',
+                select: '-__v'
+            })
+            .select('-__v')
             .then(dbOneUser => {
                 if (!dbOneUser) {
                     res.status(404).json({ message: 'There is no user with this ID' });
@@ -40,7 +40,7 @@ const userController = {
     },
     updateUser({ params, body }, res) {
         User.findOneAndUpdate( //findOneAndUpdate allows more flexibility for future developments, as it carries more data than other Mongoose update methods
-            { _id: params.id },
+            { _id: params.userId },
             body,
             { new: true, runValidators: true } // new: instructs Mongoose to return the 'new' updated User Document // runValidators: Instructs Mongoose to access use of built-in Validation functionality 
         )
@@ -54,13 +54,17 @@ const userController = {
             .catch(err => res.status(500).json(err));
     },
     removeUser({ params }, res) {
-        User.findByIdAndDelete({ _id: params.id })
+        User.findOneAndDelete({ _id: params.userId })
+            // .populate({
+            //     path: 'thoughts'
+            // })
             .then(dbUserDeleteData => {
+                console.log(dbUserDeleteData);
                 if (!dbUserDeleteData) {
                     res.status(400).json({ message: 'There is no existing User to delete with this ID' });
                     return;
                 }
-                res.json(dbUserDeleteData);
+                res.status(200).json({ message: 'User has been successfully deleted' });
             })
             .catch(err => {
                 console.log(err);
