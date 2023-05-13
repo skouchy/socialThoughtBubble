@@ -61,6 +61,7 @@ const userController = {
                 if (!dbUserData) {
                     return res.status(404).json({ message: 'This data does not exist' })
                 }
+                // Deletes child thoughts to Deleted User parent
                 Thought.deleteMany({ _id: { $in: dbUserData.thoughts } })
                     .then(res.json({ message: 'The user & their associated data has been deleted!' }));
 

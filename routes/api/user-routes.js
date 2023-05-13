@@ -18,6 +18,4 @@ router.route('/:userId')
     .put(updateUser)
     .delete(removeUser);
 
-router.route('/delete/:userId')
-
 module.exports = router;

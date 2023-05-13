@@ -1,8 +1,8 @@
 const router = require('express').Router();
-// Import all of the API routes from /api/index.js (no need for index.js though since it's implied)
+// Importing all of the API routes from /api/index.js 
 const apiRoutes = require('./api');
 
-// add prefix of '/api' to all api routes imported from 'api' directory
+// prefix '/api' in db queries
 router.use('/api', apiRoutes);
 
 router.use((req, res) => {
