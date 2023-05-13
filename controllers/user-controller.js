@@ -1,4 +1,5 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
+
 
 const userController = {
     getAllUsers(req, res) {
@@ -55,20 +56,18 @@ const userController = {
     },
     removeUser({ params }, res) {
         User.findOneAndDelete({ _id: params.userId })
-            // .populate({
-            //     path: 'thoughts'
-            // })
-            .then(dbUserDeleteData => {
-                console.log(dbUserDeleteData);
-                if (!dbUserDeleteData) {
-                    res.status(400).json({ message: 'There is no existing User to delete with this ID' });
-                    return;
+            .then((dbUserData) => {
+                console.log(`DB DATAAAA: `, dbUserData);
+                if (!dbUserData) {
+                    return res.status(404).json({ message: 'This data does not exist' })
                 }
-                res.status(200).json({ message: 'User has been successfully deleted' });
+                Thought.deleteMany({ _id: { $in: dbUserData.thoughts } })
+                    .then(res.json({ message: 'The user & their associated data has been deleted!' }));
+
             })
             .catch(err => {
                 console.log(err);
-                res.status(500).json(err);
+                res.sendStatus(400);
             });
     }
 };
