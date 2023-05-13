@@ -21,7 +21,8 @@ const UserSchema = new Schema({
     ],
     friends: [
         {
-            type: Schema.Types.ObjectId, // we need to tell Mongoose to expect an ObjectId and that its data comes from the Thought model
+            type: Schema.Types.ObjectId,
+             // we need to tell Mongoose to expect an ObjectId and that its data comes from the Thought model
             ref: 'User' // tells user model which document to search to find the right thoughts
         }
     ]

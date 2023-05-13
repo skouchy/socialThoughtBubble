@@ -12,7 +12,7 @@ const userController = {
             .catch(err => {
                 console.log(err);
                 res.status(404).json(err);
-            })
+            });
     },
     getUserById({ params }, res) {
         User.findOne({ _id: params.userId })
@@ -41,7 +41,7 @@ const userController = {
     updateUser({ params, body }, res) {
         User.findOneAndUpdate( //findOneAndUpdate allows more flexibility for future developments, as it carries more data than other Mongoose update methods
             { _id: params.userId },
-            body,
+            { $set: body },
             { new: true, runValidators: true } // new: instructs Mongoose to return the 'new' updated User Document // runValidators: Instructs Mongoose to access use of built-in Validation functionality 
         )
             .then(dbUserUpdateData => {
@@ -55,9 +55,6 @@ const userController = {
     },
     removeUser({ params }, res) {
         User.findOneAndDelete({ _id: params.userId })
-            // .populate({
-            //     path: 'thoughts'
-            // })
             .then(dbUserDeleteData => {
                 console.log(dbUserDeleteData);
                 if (!dbUserDeleteData) {
@@ -69,6 +66,43 @@ const userController = {
             .catch(err => {
                 console.log(err);
                 res.status(500).json(err);
+            });
+    },
+    addFriend({ params }, res) {
+        console.log("params user id");
+        console.log(params.userId);
+        console.log("params friend id");
+        console.log(params.friendId);
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $push: { friends: params.friendId } },
+            { new: true }
+        )
+            .then(dbFriendData => {
+                if (!dbFriendData) {
+                    res.status(404).json({ message: 'There is no user with this id!' });
+                    return;
+                }
+                res.json(dbFriendData);
+            })
+            .catch(err => res.json(err));
+    },
+    removeFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $pull: { friends: params.friendId } },
+            { new: true }
+        )
+            .then(dbMinusFriend => {
+                if (!dbMinusFriend) {
+                    res.status(404).json({ message: 'No ex-friend with id here!' });
+                    return;
+                }
+                res.json(dbMinusFriend);
+            })
+            .catch(err => {
+                console.log(err);
+                res.json(err)
             });
     }
 };
