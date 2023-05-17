@@ -9,8 +9,9 @@ Backend functionality for a user-responsive social media app that allows users t
 
 - [Installation](#installation) 
 - [Usage](#usage)
-- [License](#license)
+- [Link to Repo](#link-to-repo)
 - [Screen Recording](#screen-recording)
+- [License](#license)
 
 
 ## Installation
@@ -34,7 +35,7 @@ npm start
 ## Link to Repo
 https://github.com/skouchy/socialThoughtBubble
 
-## Link to Application in ACTION
+## Screen Recording
 https://drive.google.com/file/d/1r4vCNrauH3NHMYoUHmSs9pzu9fwaRpCz/view?usp=share_link
 
 
