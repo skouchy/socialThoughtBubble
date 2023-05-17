@@ -40,7 +40,7 @@ const ThoughtSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (createdAtValue) => formatDate(createdAtValue) // get'ting formatting function from Utils
+        get: (dateValue) => formatDate(dateValue) // get'ting formatting function from Utils
         // doing this call here, means it will be formatted before controllers even receive the data && timestamp value will be stored, but displayed w/ formatting
     },
     username: {

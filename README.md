@@ -1,8 +1,8 @@
 # socialThoughtBubble
-<!-- A database app used to track employee records -->
+A functional backend for a social media app allowing users to add friends and share/edit their thoughts.
 
 ## Description
-<!-- A simple, user friendly command line application that allows managers, or business owners, to track employee data relevant to department and role placement. The user is able to add employees, roles, and departments as they grow in size. They are also to change an employees role, and the placement of the department along with it. ALSO, should an employee's role change, the user has the ability to update that, as well. -->
+Backend functionality for a user-responsive social media app that allows users to share their thoughts, react to posted thought(s), and add other users as their friends! To attract users to this app, we have integrated the flexibility to be able to add, update, and delete their user account details, their thoughts, reactions, and friends!  Because the app has been built using a MongoDB database & structured with Mongoose.js, data is passed to accomodate more functionality as the client sees fit, now and in future developments. 
 
 
 ## Table of Contents 
@@ -11,7 +11,6 @@
 - [Usage](#usage)
 - [License](#license)
 - [Screen Recording](#screen-recording)
-- [Screenshot](#screenshot)
 
 
 ## Installation
@@ -36,10 +35,7 @@ npm start
 https://github.com/skouchy/socialThoughtBubble
 
 ## Link to Application in ACTION
-<!-- https://drive.google.com/file/d/1Bxapd6LluMBANaRAzoCOykWJqnnMA0sd/view?usp=share_link -->
-
-### Screenshot
-<!-- ![socialThoughtBubble Screenshot](https://user-images.githubusercontent.com/119292219/233773419-29d2064b-c3c9-4eaf-9067-8e12c5a09f08.png) -->
+https://drive.google.com/file/d/1r4vCNrauH3NHMYoUHmSs9pzu9fwaRpCz/view?usp=share_link
 
 
 
