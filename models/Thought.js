@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const formatDate = require('../utils/formatDate');
 
 
 const ReactionSchema = new Schema({
@@ -18,9 +17,7 @@ const ReactionSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now,
-        get: (dateValue) => formatDate(dateValue) // get'ting formatting function from Utils
-        // doing this call here, means it will be formatted before controllers even receive the data && timestamp value will be stored, but displayed w/ formatting
+        default: Date.now
     }
 },
     {
@@ -39,9 +36,7 @@ const ThoughtSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now,
-        get: (dateValue) => formatDate(dateValue) // get'ting formatting function from Utils
-        // doing this call here, means it will be formatted before controllers even receive the data && timestamp value will be stored, but displayed w/ formatting
+        default: Date.now
     },
     username: {
         type: String,
